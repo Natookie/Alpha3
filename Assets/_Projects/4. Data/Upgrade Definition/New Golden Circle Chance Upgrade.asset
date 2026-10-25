@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef864a4ebd8834f4495e83c01d6e63ef, type: 3}
+  m_Name: New Golden Circle Chance Upgrade
+  m_EditorClassIdentifier: Assembly-CSharp::GoldenCircleChanceUpgrade
+  upgradeId: golden_circle_chance
+  displayName: Golden Circle Chance
+  baseCost: 150
+  costMultiplier: 1.85
+  maxLevel: 23
+  amountPerLevel: 0.015

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04435233a56e45b4a9d43dbcbc19b753, type: 3}
+  m_Name: New Circle Shrink Duration Upgrade
+  m_EditorClassIdentifier: Assembly-CSharp::CircleShrinkDurationUpgrade
+  upgradeId: circle_speed
+  displayName: Circle Shrink Duration
+  baseCost: 50
+  costMultiplier: 1.5
+  maxLevel: 59
+  percentPerLevel: 0.05
