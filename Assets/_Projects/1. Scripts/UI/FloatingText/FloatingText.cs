@@ -39,6 +39,10 @@ public class FloatingText : MonoBehaviour
     private float rotationSpeed;
     private Color baseColor;
     private System.Action<FloatingText> onDone;
+    private bool finished;
+
+    public float Elapsed => elapsed;
+    public bool Finished => finished;
 
     void Awake(){
         text = GetComponent<TextBlock>();
@@ -49,16 +53,19 @@ public class FloatingText : MonoBehaviour
 
     public void Play(Vector3 worldPos, string content, bool golden, System.Action<FloatingText> onComplete){
         onDone = onComplete;
+        finished = false;
         elapsed = 0f;
         punch = 1f;
         swayPhase = Random.Range(0f, Mathf.PI * 2f);
+
+        tr.position = worldPos;
+        text.Position.X.Value = text.Position.Y.Value = 0f;
+        text.Text = content;
 
         startRotation = Random.Range(minStartRotation, maxStartRotation);
         rotationSpeed = Random.Range(-rotationDrift, rotationDrift);
         tr.localRotation = Quaternion.Euler(0f, 0f, startRotation);
 
-        tr.position = worldPos;
-        text.Text = content;
 
         float randomSize = Random.Range(0.9f, 1.15f) * (golden ? goldenSizeMultiplier : 1f);
         baseScale = randomSize;
@@ -79,6 +86,8 @@ public class FloatingText : MonoBehaviour
     }
 
     void Update(){
+        if(finished) return;
+
         elapsed += Time.deltaTime;
 
         velocity.y += gravity * Time.deltaTime;
@@ -104,6 +113,9 @@ public class FloatingText : MonoBehaviour
             clipMask.Tint = tint;
         }
 
-        if(elapsed >= lifetime) onDone?.Invoke(this);
+        if(elapsed >= lifetime){
+            finished = true;
+            onDone?.Invoke(this);
+        }
     }
 }

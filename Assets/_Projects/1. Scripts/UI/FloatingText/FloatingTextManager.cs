@@ -40,13 +40,32 @@ public class FloatingTextManager : MonoBehaviour
     void SpawnNow(Vector3 worldPos, string content, bool golden){
         FloatingText ft;
         if(pool.Count > 0) ft = pool.Dequeue();
-        else ft = Instantiate(prefab, transform);
+        else ft = RecycleOldestActive();
+
+        if(ft == null) return;
 
         Vector2 scatter = Random.insideUnitCircle * scatterRadius;
         Vector3 pos = worldPos + new Vector3(scatter.x, scatter.y, 0f);
 
         ft.gameObject.SetActive(true);
         ft.Play(pos, content, golden, ReturnToPool);
+    }
+
+    FloatingText RecycleOldestActive(){
+        FloatingText oldest = null;
+        float maxAge = 0f;
+
+        if(textParent == null) return null;
+        for(int i = 0; i < textParent.childCount; i++){
+            FloatingText ft = textParent.GetChild(i).GetComponent<FloatingText>();
+            if(ft == null || !ft.gameObject.activeSelf) continue;
+            if(ft.Elapsed > maxAge){
+                maxAge = ft.Elapsed;
+                oldest = ft;
+            }
+        }
+
+        return oldest;
     }
 
     void ReturnToPool(FloatingText ft){
